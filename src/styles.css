@@ -7,3 +7,21 @@
 * {
   font-family: 'Roboto', sans-serif;
 }
+
+.white-plus {
+  & path {
+    fill: white;
+  }
+}
+
+.deep-purple-plus {
+  & path {
+    fill: #7C4DFF;
+  }
+}
+
+.red-plus {
+  & path {
+    fill: #FF1744;
+  }
+}
