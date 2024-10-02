@@ -1,0 +1,5 @@
+.indigo__icon {
+  & path {
+    fill: var(--indigo);;
+  }
+}

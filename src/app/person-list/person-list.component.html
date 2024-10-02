@@ -1,0 +1,28 @@
+<div *ngIf="loading">Loading users...</div>
+<ul *ngIf="!loading" class="w-4/5 m-auto">
+  <li class="mx-5 flex gap-8">
+    <span class="text-sm leading-6 text-gray-800 w-10">ID</span>
+    <span class="text-sm leading-6 text-gray-800 w-25">Name</span>
+    <span class="text-sm leading-6 text-gray-800 w-25">Birthday</span>
+  </li>
+  <li class="flex w-full justify-between p-5 border border-solid border-gray-200 mb-3 shadow-indigo" *ngFor="let person of persons">
+    <div class="flex gap-8 items-center">
+      <span class="w-10 text-gray-600 text-xs leading-2">{{ person.id }}</span>
+      <span class="w-25 text-base leading-6.5">{{ person.name }}</span>
+      <span class="w-25 text-gray-700 text-sm leading-6">{{ person.year }}</span>
+    </div>
+
+    <div class="flex gap-7">
+      <svg-icon
+        class="indigo__icon"
+        src="assets/svg/pencil.svg"
+        [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
+      ></svg-icon>
+      <svg-icon
+        class="indigo__icon"
+        src="assets/svg/remove.svg"
+        [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
+      ></svg-icon>
+    </div>
+  </li>
+</ul>
