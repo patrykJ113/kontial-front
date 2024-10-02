@@ -3,6 +3,12 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      width: {
+        25: "100px",
+      },
+      boxShadow: {
+        indigo: "0 0 140px 10px rgba(124, 77, 255, 0.05)",
+      },
       colors: {
         deepPurple: {
           50: "#EDE7F6",
@@ -36,20 +42,26 @@ module.exports = {
           A400: "#FF1744",
           A700: "#D50000",
         },
+        gray: {
+          50: "#FAFAFA",
+          100: "#F5F5F5",
+          200: "#EEEEEE",
+          300: "#E0E0E0",
+          400: "#BDBDBD",
+          500: "#9E9E9E",
+          600: "#757575",
+          700: "#616161",
+          800: "#424242",
+          900: "#212121",
+        },
       },
       lineHeight: {
-        9: "72px",
-        8: "56px",
-        7: "48px",
-        6: "40px",
-        5: "32px",
-        4: "26px",
-        3: "24px",
-        2: "20px",
-        1: "16px",
+        18: "72px",
+        14: "56px",
+        12: "48px",
+        6.5: "26px",
       },
     },
   },
   plugins: [],
 };
-
