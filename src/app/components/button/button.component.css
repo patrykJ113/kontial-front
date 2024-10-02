@@ -1,18 +1,2 @@
 
-.white__plus {
-  & path {
-    fill: white;
-  }
-}
 
-.indigo__plus {
-  & path {
-    fill: var(--indigo);;
-  }
-}
-
-.red__plus {
-  & path {
-    fill: #FF1744;
-  }
-}

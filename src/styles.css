@@ -11,3 +11,22 @@
 :root {
     --indigo: #7C4DFF;
 }
+
+.white__icon {
+  & path {
+    fill: white;
+  }
+}
+
+.red__icon {
+  & path {
+    fill: #FF1744;
+  }
+}
+
+.indigo__icon {
+  & path {
+    fill: var(--indigo);;
+  }
+}
+
