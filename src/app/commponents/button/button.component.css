@@ -7,7 +7,7 @@
 
 .indigo-plus {
   & path {
-    fill: #7C4DFF;
+    fill: var(--indigo);;
   }
 }
 
