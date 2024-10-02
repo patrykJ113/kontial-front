@@ -6,6 +6,9 @@ module.exports = {
       width: {
         25: "100px",
       },
+      margin: {
+        50: "200px",
+      },
       boxShadow: {
         indigo: "0 0 140px 10px rgba(124, 77, 255, 0.05)",
       },

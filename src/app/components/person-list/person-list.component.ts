@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PersonService } from '../../service/person/person.service';
 import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { ButtonComponent } from "../button/button.component";
 
 type Person = {
   id: string;
@@ -12,7 +13,7 @@ type Person = {
 @Component({
   selector: 'app-person-list',
   standalone: true,
-  imports: [CommonModule, SvgIconComponent],
+  imports: [CommonModule, SvgIconComponent, ButtonComponent],
   templateUrl: './person-list.component.html',
   styleUrl: './person-list.component.css',
 })

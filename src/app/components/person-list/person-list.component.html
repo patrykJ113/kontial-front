@@ -1,28 +1,61 @@
 <div *ngIf="loading">Loading users...</div>
 <ul *ngIf="!loading">
-  <li class="mx-5 flex gap-8">
+  <li class="hidden mx-5 sm:flex gap-8 mt-5 mb-1">
     <span class="text-sm leading-6 text-gray-800 w-10">ID</span>
     <span class="text-sm leading-6 text-gray-800 w-25">Name</span>
     <span class="text-sm leading-6 text-gray-800 w-25">Birthday</span>
   </li>
-  <li class="flex w-full justify-between p-5 border border-solid border-gray-200 mb-3 shadow-indigo" *ngFor="let person of persons">
-    <div class="flex gap-8 items-center">
-      <span class="w-10 text-gray-600 text-xs leading-2">{{ person.id }}</span>
-      <span class="w-25 text-base leading-6.5">{{ person.name }}</span>
-      <span class="w-25 text-gray-700 text-sm leading-6">{{ person.year }}</span>
+  <li
+    class="sm:flex w-full justify-between p-5 border border-solid border-gray-200 mb-3 shadow-indigo sm:hover:bg-indigo-50 rounded-lg"
+    *ngFor="let person of persons"
+  >
+    <div
+      class="flex flex-col sm:flex-row gap-5 sm:gap-8 items-start sm:items-center"
+    >
+      <div
+        class="flex items-center sm:block w-10 order-2 sm:order-1 text-gray-700 sm:text-gray-600 text-base leading-6.5 sm:text-xs sm:leading-2"
+      >
+        <svg-icon
+          class="sm:hidden mr-6"
+          src="assets/svg/id.svg"
+          [svgStyle]="{ 'height.px': 20, 'width.px': 20 }"
+        ></svg-icon>
+        {{ person.id }}
+      </div>
+      <div
+        class="pb-[10px] sm:pb-0 w-full border-b border-solid border-gray-300 sm:border-none sm:w-25 order-1 sm:order-2 text-[32px] leading-10 font-bold sm:font-normal sm:text-base sm:leading-6.5"
+      >
+        {{ person.name }}
+      </div>
+      <div
+        class="mt-2 sm:mt-0 flex items-center sm:block w-25 order-3 text-gray-700 text-base leading-6.5 sm:text-sm sm:leading-6"
+      >
+        <svg-icon
+          class="sm:hidden mr-6"
+          src="assets/svg/birthday.svg"
+          [svgStyle]="{ 'height.px': 20, 'width.px': 20 }"
+        ></svg-icon>
+        {{ person.year }}
+      </div>
     </div>
 
-    <div class="flex gap-7">
+    <div class="flex gap-2 sm:gap-7 mt-5 sm:mt-0">
       <svg-icon
-        class="indigo__icon"
+        class="indigo__icon hover:cursor-pointer hidden sm:block"
         src="assets/svg/pencil.svg"
         [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
       ></svg-icon>
       <svg-icon
-        class="indigo__icon"
+        class="indigo__icon hover:cursor-pointer hidden sm:block"
         src="assets/svg/remove.svg"
         [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
       ></svg-icon>
+      <app-button class="sm:hidden flex-grow btn--full" label="Edit" />
+      <app-button
+        class="sm:hidden flex-grow btn--full"
+        type="outlined"
+        label="Delete"
+      />
     </div>
   </li>
 </ul>
