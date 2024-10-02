@@ -1,0 +1,14 @@
+<div class="group flex gap-4 py-6 hover:cursor-pointer items-center">
+  <svg-icon
+    src="assets/svg/search.svg"
+    [ngClass]="[inputVocused ? 'indigo__icon': 'gray__icon' ]"
+    [svgStyle]="{ 'height.px': 26, 'width.px': 26 }"
+  ></svg-icon>
+  <input
+    (focus)="handleFocus()"
+    (blur)="handleFocus()"
+    class="outline-none border-b-2 border-solid focus:border-indigo-A200 focus:text-indigo-A200"
+    type="text"
+    placeholder="Search Person"
+  />
+</div>

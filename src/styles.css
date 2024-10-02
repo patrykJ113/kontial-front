@@ -5,11 +5,11 @@
 @tailwind utilities;
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 :root {
-    --indigo: #7C4DFF;
+  --indigo: #7c4dff;
 }
 
 .white__icon {
@@ -20,13 +20,18 @@
 
 .red__icon {
   & path {
-    fill: #FF1744;
+    fill: #ff1744;
   }
 }
 
 .indigo__icon {
   & path {
-    fill: var(--indigo);;
+    fill: var(--indigo);
   }
 }
 
+.gray__icon {
+  & path {
+    fill: #9e9e9e;
+  }
+}
