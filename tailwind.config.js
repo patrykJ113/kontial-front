@@ -10,7 +10,7 @@ module.exports = {
         indigo: "0 0 140px 10px rgba(124, 77, 255, 0.05)",
       },
       colors: {
-        deepPurple: {
+        indigo: {
           50: "#EDE7F6",
           100: "#D1C4E9",
           200: "#B39DDB",

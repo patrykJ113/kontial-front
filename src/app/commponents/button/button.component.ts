@@ -43,13 +43,13 @@ export class ButtonComponent {
       return 'border border-solid border-gray-400 text-red-A400 hover:bg-red-50 active:bg-red-100 red-plus';
     }
     if (this.isDefault()) {
-      return 'bg-deepPurple-A200 hover:bg-deepPurple-700 active:bg-deepPurple-900 text-white white-plus';
+      return 'bg-indigo-A200 hover:bg-indigo-700 active:bg-indigo-900 text-white white-plus';
     }
     if (this.isOutlined()) {
-      return 'border border-solid border-gray-400 text-deepPurple-A200 hover:bg-deepPurple-50 active:bg-deepPurple-100 deep-purple-plus';
+      return 'border border-solid border-gray-400 text-indigo-A200 hover:bg-indigo-50 active:bg-indigo-100 indigo-plus';
     }
     if (this.isCircle()) {
-      return 'bg-deepPurple-A200 hover:bg-deepPurple-700 active:bg-deepPurple-900 !px-3 !py-3 white-plus';
+      return 'bg-indigo-A200 hover:bg-indigo-700 active:bg-indigo-900 !px-3 !py-3 white-plus';
     }
     return '';
   }
