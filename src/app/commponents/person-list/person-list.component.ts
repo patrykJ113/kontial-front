@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PersonService } from '../service/person/person.service';
+import { PersonService } from '../../service/person/person.service';
 import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 
