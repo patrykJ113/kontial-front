@@ -1,0 +1,16 @@
+<button
+  class="text leading-4 py-2 px-4 rounded-full"
+  [ngClass]="getButtonClasses()"
+>
+  <div class="flex">
+    @if(!isCircle()) {
+    <span class="mr-1">{{ label }}</span>
+    }
+
+    <svg-icon
+      *ngIf="showIcon || isCircle()"
+      src="assets/svg/add.svg"
+      [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
+    ></svg-icon>
+  </div>
+</button>
