@@ -37,13 +37,13 @@ export class ButtonComponent {
 
   getButtonClasses() {
     if (this.isDefaultDanger()) {
-      return 'bg-red-A400 hover:bg-red-700 active:bg-red-900 text-white white-plus';
+      return 'bg-red-A400 hover:bg-red-700 active:bg-red-900 text-white white__icon';
     }
     if (this.isOutlinedDanger()) {
       return 'border border-solid border-gray-400 text-red-A400 hover:bg-red-50 active:bg-red-100 red__icon';
     }
     if (this.isDefault()) {
-      return 'bg-indigo-A200 hover:bg-indigo-700 active:bg-indigo-900 text-white white-plus';
+      return 'bg-indigo-A200 hover:bg-indigo-700 active:bg-indigo-900 text-white white__icon';
     }
     if (this.isOutlined()) {
       return 'border border-solid border-gray-400 text-indigo-A200 hover:bg-indigo-50 active:bg-indigo-100 indigo__icon';
