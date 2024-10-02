@@ -49,7 +49,7 @@ export class ButtonComponent {
       return 'border border-solid border-gray-400 text-deepPurple-A200 hover:bg-deepPurple-50 active:bg-deepPurple-100 deep-purple-plus';
     }
     if (this.isCircle()) {
-      return 'bg-deepPurple-A200 hover:bg-deepPurple-700 active:bg-deepPurple-900 px-3 py-3 white-plus';
+      return 'bg-deepPurple-A200 hover:bg-deepPurple-700 active:bg-deepPurple-900 !px-3 !py-3 white-plus';
     }
     return '';
   }
