@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { ButtonComponent } from '../button/button.component';
+import { ModalType } from '../../types/ModalType';
 
 type Person = {
   id: string;
@@ -19,4 +20,12 @@ type Person = {
 export class PersonListComponent {
   @Input() persons: Person[] = [];
   @Input() loading = true;
+  @Output() open = new EventEmitter<{ type: ModalType; id: string }>();
+
+  onClick(type: ModalType, id: string) {
+    this.open.emit({
+      type,
+      id,
+    });
+  }
 }

@@ -41,11 +41,13 @@
 
     <div class="flex gap-2 sm:gap-7 mt-5 sm:mt-0">
       <svg-icon
+        (click)="onClick('Eddit', person.id)"
         class="indigo__icon hover:cursor-pointer hidden sm:block"
         src="assets/svg/pencil.svg"
         [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
       ></svg-icon>
       <svg-icon
+        (click)="onClick('Delete', person.id)"
         class="indigo__icon hover:cursor-pointer hidden sm:block"
         src="assets/svg/remove.svg"
         [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
@@ -61,10 +63,10 @@
 </ul>
 <div *ngIf="!persons.length" class="flex flex-col items-center mt-5 sm:mt-20">
   <svg-icon
-        class="indigo__icon"
-        src="assets/svg/no-results-found.svg"
-        [svgStyle]="{ 'height.px': 160, 'width.px': 160 }"
-      ></svg-icon>
+    class="indigo__icon"
+    src="assets/svg/no-results-found.svg"
+    [svgStyle]="{ 'height.px': 160, 'width.px': 160 }"
+  ></svg-icon>
   <h1 class="text-3xl mt-5">No results found</h1>
   <p class="text-gray-600">Please try a different search</p>
 </div>

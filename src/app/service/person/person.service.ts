@@ -13,4 +13,12 @@ export class PersonService {
   getPersons(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  getPerson(id: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/$${id}`);
+  }
+
+  delatePerson(id: string): Observable<any[]> {
+    return this.http.delete<any[]>(`${this.apiUrl}/$${id}`);
+  }
 }

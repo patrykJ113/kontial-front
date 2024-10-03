@@ -3,7 +3,22 @@
 >
   <section class="flex justify-between items-center col-span-full">
     <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
-    <app-button class="hidden sm:block" [showIcon]="true" />
+    <app-button
+      class="hidden sm:block"
+      [showIcon]="true"
+      (click)="openModal({ type: 'Add' })"
+    />
   </section>
-  <app-person-list [persons]="filteredPersons" [loading]="loading" class="col-span-full"></app-person-list>
+  <app-person-list
+    (open)="openModal($event)"
+    [persons]="filteredPersons"
+    [loading]="loading"
+    class="col-span-full"
+  ></app-person-list>
+  <app-modal
+    [open]="modalOpen"
+    [id]="modalId"
+    [type]="modalType"
+    (close)="closeModal()"
+  ></app-modal>
 </section>

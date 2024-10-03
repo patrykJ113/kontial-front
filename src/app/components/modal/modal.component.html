@@ -1,0 +1,112 @@
+<div
+  *ngIf="open"
+  (click)="closeModal()"
+  class="fixed top-0 left-0 bg-backdrop inset-0"
+>
+  <div
+    class="grid h-full grid-cols-4 mt-6 mx-4 gap-x-4 gap-y-0 md:grid-cols-8 md:mx-8 lg:grid-cols-12 lg:mx-6 lg:gap-x-6 xl:mx-50"
+  >
+    <article
+      (click)="$event.stopPropagation()"
+      class="bg-white h-max p-5 col-span-full md:col-start-2 md:col-end-8 lg:col-start-4 lg:col-end-10 rounded-lg"
+    >
+      <section class="flex justify-between items-center mb-5">
+        <h1 class="text-3.5xl font-bold">{{ type }} Person</h1>
+        <svg-icon
+          class="hover:cursor-pointer"
+          (click)="closeModal()"
+          src="assets/svg/close.svg"
+          [svgStyle]="{ 'height.px': 16, 'width.px': 16 }"
+        ></svg-icon>
+      </section>
+      <section class="flex flex-col">
+        <form [formGroup]="Form" (ngSubmit)="onSubmit()">
+          <label class="flex flex-col gap-2 pb-2">
+            <span class="text-sm leading-6 font-medium">Name</span>
+            <input
+              formControlName="name"
+              class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
+              [ngClass]="{ 'border-red-A400': isControlInvalid('name') }"
+              required
+              type="text"
+              placeholder="Enter Name"
+            />
+            <span
+              class="text-sm leading-6 text-red-A400"
+              [ngClass]="{ invisible: !isControlInvalid('name') }"
+              >Name is required.</span
+            >
+          </label>
+          <label class="flex flex-col gap-2 pb-2">
+            <span class="text-sm leading-6 font-medium"> Birthday </span>
+            <input
+              formControlName="birthday"
+              class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
+              [ngClass]="{ 'border-red-A400': isControlInvalid('birthday') }"
+              required
+              type="date"
+            />
+            <span
+              class="text-sm leading-6 text-red-A400"
+              [ngClass]="{ invisible: !isControlInvalid('birthday') }"
+              >Birthday is required.</span
+            >
+          </label>
+          <label class="flex flex-col gap-2 pb-2">
+            <span class="text-sm leading-6 font-medium">ID</span>
+            <input
+              formControlName="id"
+              class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
+              [ngClass]="{ 'border-red-A400': isControlInvalid('id') }"
+              required
+              type="text"
+              placeholder="Enter ID"
+            />
+            <div class="h-[72px]">
+              <div
+                class="text-sm leading-6 text-gray-700"
+                [ngClass]="{ hidden: isControlInvalid('id') }"
+              >
+                ID must start with a letter (A-Z) followed by 4 digits (e.g.,
+                A1234). The ID should be exactly 5 characters long
+              </div>
+              <div [ngClass]="{ invisible: !isControlInvalid('id') }">
+                <div
+                  class="text-sm leading-6 text-red-A400"
+                  *ngIf="startWithLetter()"
+                >
+                  ID must start with a letter.
+                </div>
+                <div
+                  class="text-sm leading-6 text-red-A400"
+                  *ngIf="hasFourDigits()"
+                >
+                  ID must have 4 digits after the letter.
+                </div>
+                <div
+                  class="text-sm leading-6 text-red-A400"
+                  *ngIf="isFiveCharLong()"
+                >
+                  ID must be exactly 5 characters long.
+                </div>
+              </div>
+            </div>
+          </label>
+          <section class="flex gap-2 mt-5">
+            <app-button
+              [submit]="true"
+              class="flex-grow btn--full"
+              [label]="type + ' Person'"
+            />
+            <app-button
+              (click)="closeModal()"
+              class="flex-grow btn--full"
+              variant="outlined"
+              label="Cancle"
+            />
+          </section>
+        </form>
+      </section>
+    </article>
+  </div>
+</div>
