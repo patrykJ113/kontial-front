@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { PersonService } from '../../service/person/person.service';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { ButtonComponent } from "../button/button.component";
+import { ButtonComponent } from '../button/button.component';
 
 type Person = {
   id: string;
@@ -18,21 +17,6 @@ type Person = {
   styleUrl: './person-list.component.css',
 })
 export class PersonListComponent {
-  persons: Person[] = [];
-  loading = true;
-
-  constructor(private personService: PersonService) {}
-
-  ngOnInit(): void {
-    this.personService.getPersons().subscribe({
-      next: (data) => {
-        this.persons = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error(err);
-        this.loading = false;
-      },
-    });
-  }
+  @Input() persons: Person[] = [];
+  @Input() loading = true;
 }

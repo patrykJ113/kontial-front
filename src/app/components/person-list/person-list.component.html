@@ -1,5 +1,5 @@
 <div *ngIf="loading">Loading users...</div>
-<ul *ngIf="!loading">
+<ul *ngIf="!loading && persons.length">
   <li class="hidden mx-5 sm:flex gap-8 mt-5 mb-1">
     <span class="text-sm leading-6 text-gray-800 w-10">ID</span>
     <span class="text-sm leading-6 text-gray-800 w-25">Name</span>
@@ -59,3 +59,12 @@
     </div>
   </li>
 </ul>
+<div *ngIf="!persons.length" class="flex flex-col items-center mt-5 sm:mt-20">
+  <svg-icon
+        class="indigo__icon"
+        src="assets/svg/no-results-found.svg"
+        [svgStyle]="{ 'height.px': 160, 'width.px': 160 }"
+      ></svg-icon>
+  <h1 class="text-3xl mt-5">No results found</h1>
+  <p class="text-gray-600">Please try a different search</p>
+</div>

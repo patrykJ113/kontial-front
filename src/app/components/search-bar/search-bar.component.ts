@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
@@ -11,6 +11,15 @@ import { SvgIconComponent } from 'angular-svg-icon';
 })
 export class SearchBarComponent {
   inputVocused = false;
+
+  @Output() searchEvent = new EventEmitter<string>();
+
+  onInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    this.searchEvent.emit(value);
+  }
+
   handleFocus() {
     this.inputVocused = !this.inputVocused;
   }

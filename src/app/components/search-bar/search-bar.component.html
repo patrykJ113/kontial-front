@@ -7,6 +7,7 @@
   <input
     (focus)="handleFocus()"
     (blur)="handleFocus()"
+    (input)="onInput($event)"
     class="outline-none border-b-2 border-solid focus:border-indigo-A200 focus:text-indigo-A200"
     type="text"
     placeholder="Search Person"
