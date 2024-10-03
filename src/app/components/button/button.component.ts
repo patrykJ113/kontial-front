@@ -13,26 +13,31 @@ export class ButtonComponent {
   @Input() danger = false;
   @Input() showIcon = false;
   @Input() label = 'Add New';
-  @Input() type: 'default' | 'outlined' | 'circle' = 'default';
+  @Input() variant: 'default' | 'outlined' | 'circle' = 'default';
+  @Input() submit = false;
+
+  buttonType() {
+    return this.submit ? 'submit' : 'button';
+  }
 
   isDefaultDanger() {
-    return this.type === 'default' && this.danger;
+    return this.variant === 'default' && this.danger;
   }
 
   isOutlinedDanger() {
-    return this.type === 'outlined' && this.danger;
+    return this.variant === 'outlined' && this.danger;
   }
 
   isDefault() {
-    return this.type === 'default';
+    return this.variant === 'default';
   }
 
   isOutlined() {
-    return this.type === 'outlined';
+    return this.variant === 'outlined';
   }
 
   isCircle() {
-    return this.type === 'circle';
+    return this.variant === 'circle';
   }
 
   getButtonClasses() {
