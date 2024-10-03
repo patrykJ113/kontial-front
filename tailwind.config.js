@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      fontSize: {
+        "3.5xl": ["32px", "40px"],
+      },
       width: {
         25: "100px",
       },
@@ -13,6 +16,7 @@ module.exports = {
         indigo: "0 0 140px 10px rgba(124, 77, 255, 0.05)",
       },
       colors: {
+        backdrop: "rgba(117, 117, 117, 0.3)",
         indigo: {
           50: "#EDE7F6",
           100: "#D1C4E9",
