@@ -19,6 +19,7 @@ import { idValidator } from '../../validators/idValidator';
 import { ModalType } from '../../types/ModalType';
 import { PersonService } from '../../service/person/person.service';
 import { Person } from '../../types/Person';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-modal',
@@ -29,6 +30,7 @@ import { Person } from '../../types/Person';
     ButtonComponent,
     FormsModule,
     ReactiveFormsModule,
+    SpinnerComponent,
   ],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css',
@@ -40,6 +42,7 @@ export class ModalComponent {
   @Output() close = new EventEmitter<void>();
   person!: Person;
   Form: FormGroup;
+  loading = false;
 
   constructor(private fb: FormBuilder, private personService: PersonService) {
     this.Form = this.fb.group({
@@ -51,21 +54,21 @@ export class ModalComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['id'] && this.id) {
-      if (this.id) {
-        this.personService.getPerson(this.id).subscribe({
-          next: (data: Person) => {
-            this.person = data;
-            this.Form.patchValue({
-              name: this.person.name,
-              birthday: this.person.date,
-              id: this.person.id,
-            });
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
-      }
+      this.loading = true;
+      this.personService.getPerson(this.id).subscribe({
+        next: (data: Person) => {
+          this.person = data;
+          this.Form.patchValue({
+            name: this.person.name,
+            birthday: this.person.date,
+            id: this.person.id,
+          });
+          this.loading = false;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
     }
   }
 
@@ -87,24 +90,30 @@ export class ModalComponent {
       return;
     }
 
+    this.loading = true
+
     if (this.isAddForm()) {
       this.personService.addPerson(this.Form.value).subscribe({
         next: (data: Person) => {
           console.log(data);
+          this.loading = false
         },
         error: (err) => {
           console.log(err);
+          this.loading = false
         },
-      })
+      });
     }
 
     if (this.isEditForm()) {
       this.personService.updatePerson(this.id, this.Form.value).subscribe({
         next: (data: Person) => {
           console.log(data);
+          this.loading = false;
         },
         error: (err) => {
           console.log(err);
+          this.loading = false
         },
       });
     }
@@ -113,9 +122,11 @@ export class ModalComponent {
       this.personService.delatePerson(this.id).subscribe({
         next: (data: Person) => {
           console.log(data);
+          this.loading = false;
         },
         error: (err) => {
           console.log(err);
+          this.loading = false
         },
       });
     }

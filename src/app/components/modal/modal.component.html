@@ -1,15 +1,33 @@
-<div
-  *ngIf="open"
-  (click)="closeModal()"
-  class="fixed bg-backdrop inset-0"
->
+<div *ngIf="open" (click)="closeModal()" class="fixed bg-backdrop inset-0">
   <div
     class="grid h-full grid-cols-4 mt-6 mx-4 gap-x-4 gap-y-0 md:grid-cols-8 md:mx-8 lg:grid-cols-12 lg:mx-6 lg:gap-x-6 xl:mx-50 items-center"
   >
     <article
       (click)="$event.stopPropagation()"
-      class="bg-white h-max p-5 col-span-full md:col-start-2 md:col-end-8 lg:col-start-4 lg:col-end-10 rounded-lg"
+      class="bg-white h-max p-5 col-span-full md:col-start-2 md:col-end-8 lg:col-start-4 lg:col-end-10 rounded-lg relative"
     >
+      <!-- <div
+        class="absolute bottom-full-20 left-0 bg-red-A400 text-white rounded-lg p-5 flex w-full gap-6 items-center"
+      >
+        <svg-icon
+          *ngIf="false"
+          class="white__icon"
+          src="assets/svg/success.svg"
+          [svgStyle]="{ 'height.px': 46, 'width.px': 46 }"
+        ></svg-icon>
+        <svg-icon
+          class="white__icon"
+          src="assets/svg/error.svg"
+          [svgStyle]="{ 'height.px': 46, 'width.px': 46 }"
+        ></svg-icon>
+        <div>
+          <h1 class="text-2xl font-medium">Some Info</h1>
+          <p class="text-sm">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
+            molestias!
+          </p>
+        </div> -->
+      </div>
       <section class="flex justify-between items-center mb-5">
         <h1
           [ngClass]="{ 'text-red-A400': isDeleteForm() }"
@@ -25,8 +43,9 @@
         ></svg-icon>
       </section>
       <section class="flex flex-col">
-        <form [formGroup]="Form" (ngSubmit)="onSubmit()">
-          <p *ngIf="isDeleteForm()">
+        <form [formGroup]="Form" (ngSubmit)="onSubmit()" class="relative">
+          <app-spinner *ngIf="loading" [spinnerRed]="isDeleteForm()" />
+          <p *ngIf="isDeleteForm()" class="pb-5">
             Are you sure you want to permanently delete the user
             <span class="font-bold">{{ person.name }}</span> with ID
             <span class="font-bold">{{ person.id }}</span
@@ -58,7 +77,9 @@
               <input
                 formControlName="birthday"
                 class="w-full block border border-solid border-gray-500 rounded py-2 px-3"
-                [ngClass]="{ 'border-red-A400': isControlInvalid('birthday') }"
+                [ngClass]="[
+                  isControlInvalid('birthday') ? 'border-red-A400' : ''
+                ]"
                 required
                 type="date"
               />
@@ -84,7 +105,7 @@
                 type="text"
                 placeholder="Enter ID"
               />
-              <div class="h-[72px]" [ngClass]="{hidden: isEditForm()}">
+              <div class="h-[72px]" [ngClass]="{ hidden: isEditForm() }">
                 <div
                   *ngIf="!isEditForm()"
                   class="text-sm leading-6 text-gray-700"

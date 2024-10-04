@@ -3,6 +3,35 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      spacing: {
+        "full-20": "calc(100%)",
+      },
+      keyframes: {
+        spinnerRotate: {
+          "100%": { transform: "rotate(360deg)" },
+        },
+        spinnerClipFix: {
+          "0%": { clipPath: "polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)" },
+          "25%": {
+            clipPath: "polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)",
+          },
+          "50%": {
+            clipPath:
+              "polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)",
+          },
+          "75%": {
+            clipPath:
+              "polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)",
+          },
+          "100%": {
+            clipPath: "polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)",
+          },
+        },
+      },
+      animation: {
+        spinnerRotate: "spinnerRotate 1s linear infinite",
+        spinnerClipFix: "spinnerClipFix 2s linear infinite",
+      },
       fontSize: {
         "3.5xl": ["32px", "40px"],
       },
@@ -60,6 +89,22 @@ module.exports = {
           700: "#616161",
           800: "#424242",
           900: "#212121",
+        },
+        green: {
+          50: "#E8F5E9",
+          100: "#C8E6C9",
+          200: "#A5D6A7",
+          300: "#81C784",
+          400: "#66BB6A",
+          500: "#4CAF50",
+          600: "#43A047",
+          700: "#388E3C",
+          800: "#2E7D32",
+          900: "#1B5E20",
+          A100: "#B9F6CA",
+          A200: "#69F0AE",
+          A400: "#00E676",
+          A700: "#00C853",
         },
       },
       lineHeight: {
