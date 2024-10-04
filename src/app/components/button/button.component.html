@@ -4,9 +4,12 @@
   [ngClass]="getButtonClasses()"
 >
   <div class="flex items-center">
-    @if(!isCircle()) {
-    <span class="mr-1 min-w-24">{{ label }}</span>
-    }
+    <span
+      *ngIf="!isCircle()"
+      class="mr-1 min-w-24"
+      [ngClass]="{ 'min-w-fit': showIcon }"
+      >{{ label }}</span
+    >
 
     <svg-icon
       *ngIf="showIcon || isCircle()"
