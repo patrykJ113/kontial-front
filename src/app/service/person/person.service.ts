@@ -14,7 +14,7 @@ export class PersonService {
 
   getPersons(): Observable<Person[]> {
     return this.http
-      .get<{ id: string; name: string; year: number }[]>(this.apiUrl)
+      .get<{ id: string; name: string; year: string }[]>(this.apiUrl)
       .pipe(
         map((response) =>
           response.map((person) => ({
@@ -23,11 +23,21 @@ export class PersonService {
             date: person.year,
           }))
         )
-      );;
+      );
   }
 
   getPerson(id: string): Observable<Person> {
-    return this.http.get<Person>(`${this.apiUrl}/${id}`);
+    return this.http
+      .get<{ id: string; name: string; birthday: string }>(
+        `${this.apiUrl}/${id}`
+      )
+      .pipe(
+        map((person) => ({
+          id: person.id,
+          name: person.name,
+          date: person.birthday,
+        }))
+      );
   }
 
   delatePerson(id: string): Observable<any[]> {

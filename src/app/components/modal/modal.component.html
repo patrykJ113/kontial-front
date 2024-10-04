@@ -22,8 +22,11 @@
       <section class="flex flex-col">
         <form [formGroup]="Form" (ngSubmit)="onSubmit()">
           <label class="flex flex-col gap-2 pb-2">
-            <span class="text-sm leading-6 font-medium">Name</span>
+            <span class="text-sm leading-6 font-medium"
+              >Name<span class="text-red-A400">*</span></span
+            >
             <input
+              [value]="getInputValue('name')"
               formControlName="name"
               class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
               [ngClass]="{ 'border-red-A400': isControlInvalid('name') }"
@@ -38,10 +41,13 @@
             >
           </label>
           <label class="flex flex-col gap-2 pb-2">
-            <span class="text-sm leading-6 font-medium"> Birthday </span>
+            <span class="text-sm leading-6 font-medium">
+              Birthday<span class="text-red-A400">*</span></span
+            >
             <input
+              [value]="getInputValue('date')"
               formControlName="birthday"
-              class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
+              class="w-full block border border-solid border-gray-500 rounded py-2 px-3"
               [ngClass]="{ 'border-red-A400': isControlInvalid('birthday') }"
               required
               type="date"
@@ -53,17 +59,25 @@
             >
           </label>
           <label class="flex flex-col gap-2 pb-2">
-            <span class="text-sm leading-6 font-medium">ID</span>
+            <span class="text-sm leading-6 font-medium"
+              >ID<span class="text-red-A400">*</span></span
+            >
             <input
+              [readonly]="isEditForm()"
+              [value]="getInputValue('id')"
               formControlName="id"
               class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
-              [ngClass]="{ 'border-red-A400': isControlInvalid('id') }"
+              [ngClass]="{
+                'border-red-A400': isControlInvalid('id'),
+                'text-gray-400 border-gray-300 outline-none': isEditForm()
+                }"
               required
               type="text"
               placeholder="Enter ID"
             />
             <div class="h-[72px]">
               <div
+                *ngIf="!isEditForm()"
                 class="text-sm leading-6 text-gray-700"
                 [ngClass]="{ hidden: isControlInvalid('id') }"
               >

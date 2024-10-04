@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { ButtonComponent } from '../button/button.component';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ import {
 import { idValidator } from '../../validators/idValidator';
 import { ModalType } from '../../types/ModalType';
 import { PersonService } from '../../service/person/person.service';
+import { Person } from '../../types/Person';
 
 @Component({
   selector: 'app-modal',
@@ -31,6 +32,7 @@ export class ModalComponent {
   @Input() open = false;
   @Input() id = '';
   @Output() close = new EventEmitter<void>();
+  person!: Person;
   Form: FormGroup;
 
   constructor(private fb: FormBuilder, private personService: PersonService) {
@@ -39,6 +41,41 @@ export class ModalComponent {
       birthday: ['', Validators.required],
       id: ['', [Validators.required, idValidator()]],
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['id'] && this.id) {
+      if (this.id) {
+        this.personService.getPerson(this.id).subscribe({
+          next: (data: Person) => {
+            console.log(data);
+
+            this.person = data;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      }
+    }
+  }
+
+  isEditForm() {
+    return this.type === 'Eddit';
+  }
+
+  getInputValue(type: string) {
+    if(this.person) {
+      switch(type) {
+        case 'name':
+        return this.person.name
+        case 'date':
+        return this.person.date
+        case 'id':
+        return this.person.id
+      }
+    }
+    return ''
   }
 
   onSubmit() {
