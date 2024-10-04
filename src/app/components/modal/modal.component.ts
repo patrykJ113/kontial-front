@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+} from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { ButtonComponent } from '../button/button.component';
 import { FormsModule } from '@angular/forms';
@@ -63,6 +69,10 @@ export class ModalComponent {
     }
   }
 
+  isAddForm() {
+    return this.type === 'Add';
+  }
+
   isEditForm() {
     return this.type === 'Eddit';
   }
@@ -74,6 +84,40 @@ export class ModalComponent {
   onSubmit() {
     if (this.Form.invalid) {
       this.Form.markAllAsTouched();
+      return;
+    }
+
+    if (this.isAddForm()) {
+      this.personService.addPerson(this.Form.value).subscribe({
+        next: (data: Person) => {
+          console.log(data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      })
+    }
+
+    if (this.isEditForm()) {
+      this.personService.updatePerson(this.id, this.Form.value).subscribe({
+        next: (data: Person) => {
+          console.log(data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
+
+    if (this.isDeleteForm()) {
+      this.personService.delatePerson(this.id).subscribe({
+        next: (data: Person) => {
+          console.log(data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
     }
   }
 

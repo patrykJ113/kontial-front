@@ -3,18 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Person } from '../../types/Person';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PersonService {
-  private apiUrl = 'http://localhost:8080/api/persons';
-
   constructor(private http: HttpClient) {}
 
   getPersons(): Observable<Person[]> {
     return this.http
-      .get<{ id: string; name: string; year: string }[]>(this.apiUrl)
+      .get<{ id: string; name: string; year: string }[]>(environment.apiUrl)
       .pipe(
         map((response) =>
           response.map((person) => ({
@@ -29,7 +28,7 @@ export class PersonService {
   getPerson(id: string): Observable<Person> {
     return this.http
       .get<{ id: string; name: string; birthday: string }>(
-        `${this.apiUrl}/${id}`
+        `${environment.apiUrl}/${id}`
       )
       .pipe(
         map((person) => ({
@@ -40,7 +39,15 @@ export class PersonService {
       );
   }
 
-  delatePerson(id: string): Observable<any[]> {
-    return this.http.delete<any[]>(`${this.apiUrl}/$${id}`);
+  addPerson(person: Person): Observable<Person> {
+    return this.http.post<Person>(`${environment.apiUrl}`, person);
+  }
+
+  updatePerson(id: string, updatedPerson: Person): Observable<Person> {
+    return this.http.put<Person>(`${environment.apiUrl}/${id}`, updatedPerson);
+  }
+
+  delatePerson(id: string): Observable<Person> {
+    return this.http.delete<Person>(`${environment.apiUrl}/${id}`);
   }
 }
