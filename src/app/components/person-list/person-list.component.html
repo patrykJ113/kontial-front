@@ -52,8 +52,13 @@
         src="assets/svg/remove.svg"
         [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
       ></svg-icon>
-      <app-button class="sm:hidden flex-grow btn--full" label="Edit" />
       <app-button
+        (click)="onClick('Eddit', person.id)"
+        class="sm:hidden flex-grow btn--full"
+        label="Edit"
+      />
+      <app-button
+        (click)="onClick('Delete', person.id)"
         class="sm:hidden flex-grow btn--full"
         variant="outlined"
         label="Delete"
