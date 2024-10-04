@@ -67,6 +67,10 @@ export class ModalComponent {
     return this.type === 'Eddit';
   }
 
+  isDeleteForm() {
+    return this.type === 'Delete';
+  }
+
   onSubmit() {
     if (this.Form.invalid) {
       this.Form.markAllAsTouched();
