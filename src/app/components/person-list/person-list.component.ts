@@ -3,12 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { ButtonComponent } from '../button/button.component';
 import { ModalType } from '../../types/ModalType';
-
-type Person = {
-  id: string;
-  name: string;
-  year: number;
-};
+import { Person } from '../../types/Person';
 
 @Component({
   selector: 'app-person-list',

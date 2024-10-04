@@ -5,7 +5,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { PersonService } from '../../service/person/person.service';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { ModalType } from '../../types/ModalType';
-import { Person } from '../../types/person';
+import { Person } from '../../types/Person';
 
 @Component({
   selector: 'app-home',
