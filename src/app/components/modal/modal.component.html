@@ -26,7 +26,6 @@
               >Name<span class="text-red-A400">*</span></span
             >
             <input
-              [value]="getInputValue('name')"
               formControlName="name"
               class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
               [ngClass]="{ 'border-red-A400': isControlInvalid('name') }"
@@ -45,7 +44,6 @@
               Birthday<span class="text-red-A400">*</span></span
             >
             <input
-              [value]="getInputValue('date')"
               formControlName="birthday"
               class="w-full block border border-solid border-gray-500 rounded py-2 px-3"
               [ngClass]="{ 'border-red-A400': isControlInvalid('birthday') }"
@@ -64,7 +62,6 @@
             >
             <input
               [readonly]="isEditForm()"
-              [value]="getInputValue('id')"
               formControlName="id"
               class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
               [ngClass]="{

@@ -48,9 +48,12 @@ export class ModalComponent {
       if (this.id) {
         this.personService.getPerson(this.id).subscribe({
           next: (data: Person) => {
-            console.log(data);
-
             this.person = data;
+            this.Form.patchValue({
+              name: this.person.name,
+              birthday: this.person.date,
+              id: this.person.id,
+            });
           },
           error: (err) => {
             console.log(err);
@@ -62,20 +65,6 @@ export class ModalComponent {
 
   isEditForm() {
     return this.type === 'Eddit';
-  }
-
-  getInputValue(type: string) {
-    if(this.person) {
-      switch(type) {
-        case 'name':
-        return this.person.name
-        case 'date':
-        return this.person.date
-        case 'id':
-        return this.person.id
-      }
-    }
-    return ''
   }
 
   onSubmit() {
