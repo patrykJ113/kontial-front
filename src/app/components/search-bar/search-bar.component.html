@@ -2,13 +2,14 @@
   <svg-icon
     src="assets/svg/search.svg"
     [ngClass]="[inputVocused ? 'indigo__icon': 'gray__icon' ]"
+    class="transition-colors duration-300"
     [svgStyle]="{ 'height.px': 26, 'width.px': 26 }"
   ></svg-icon>
   <input
     (focus)="handleFocus()"
     (blur)="handleFocus()"
     (input)="onInput($event)"
-    class="outline-none focus:border-b-2 focus:border-solid focus:border-indigo-A200 focus:text-indigo-A200"
+    class="outline-none border-b-2 border-transparent border-solid focus:border-indigo-A200 focus:text-indigo-A200 transition-colors duration-300"
     type="text"
     placeholder="Search Person"
   />
