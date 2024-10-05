@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Person } from '../../types/Person';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { AddPersonResponse } from '../../types/AddPersonResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -39,8 +40,10 @@ export class PersonService {
       );
   }
 
-  addPerson(person: Person): Observable<Person> {
-    return this.http.post<Person>(`${environment.apiUrl}`, person);
+  addPerson(person: Person): Observable<HttpResponse<AddPersonResponse>> {
+    return this.http.post<AddPersonResponse>(`${environment.apiUrl}`, person, {
+      observe: 'response',
+    });
   }
 
   updatePerson(id: string, updatedPerson: Person): Observable<Person> {

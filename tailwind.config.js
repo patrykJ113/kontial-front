@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        "full-20": "calc(100%)",
+        "full-20": "calc(100% + 12px)",
       },
       keyframes: {
         spinnerRotate: {

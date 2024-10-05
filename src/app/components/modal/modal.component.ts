@@ -20,6 +20,7 @@ import { ModalType } from '../../types/ModalType';
 import { PersonService } from '../../service/person/person.service';
 import { Person } from '../../types/Person';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-modal',
@@ -43,6 +44,10 @@ export class ModalComponent {
   person!: Person;
   Form: FormGroup;
   loading = false;
+  isAlertOpen = false;
+  success = false;
+  alertMessages: string[] = [];
+  deletedPersonSuccess = false
 
   constructor(private fb: FormBuilder, private personService: PersonService) {
     this.Form = this.fb.group({
@@ -84,23 +89,71 @@ export class ModalComponent {
     return this.type === 'Delete';
   }
 
+  openAllert(isSuccess: boolean) {
+    if (isSuccess) {
+      this.success = true;
+      this.isAlertOpen = true;
+    } else {
+      this.success = false;
+      this.isAlertOpen = true;
+    }
+  }
+
+  resetAlert() {
+    this.isAlertOpen = false;
+    this.success = false;
+    this.alertMessages = [];
+  }
+
+  hasServerError(inputName: string, errorName: string): boolean {
+    return this.Form.get(inputName)?.errors?.[errorName] !== undefined;
+  }
+
+  handleErros(err: HttpErrorResponse): string[] {
+    const errorMesages: string[] = [];
+
+    if (err.error.id) {
+      this.Form.get('id')?.setErrors({ invalidId: true });
+      errorMesages.push(err.error.id);
+    }
+
+    if (err.error.name) {
+      this.Form.get('name')?.setErrors({ invalidName: true });
+      errorMesages.push(err.error.name);
+    }
+    if (err.error.birthday) {
+      this.Form.get('birthday')?.setErrors({ invalidBirthday: true });
+      errorMesages.push(err.error.birthday);
+    }
+    if (err.error.exists) {
+      this.Form.get('id')?.setErrors({ idExists: true });
+      errorMesages.push(err.error.exists);
+    }
+
+    return errorMesages;
+  }
+
   onSubmit() {
     if (this.Form.invalid) {
       this.Form.markAllAsTouched();
+      this.deletedPersonSuccess = false
       return;
     }
 
-    this.loading = true
+    this.resetAlert();
+    this.loading = true;
 
     if (this.isAddForm()) {
       this.personService.addPerson(this.Form.value).subscribe({
-        next: (data: Person) => {
-          console.log(data);
-          this.loading = false
+        next: (response) => {
+          this.alertMessages = ['Person Added Successfully'];
+          this.openAllert(true);
+          this.loading = false;
         },
         error: (err) => {
-          console.log(err);
-          this.loading = false
+          this.alertMessages = err.error ? [err.error] : this.handleErros(err);
+          this.openAllert(false);
+          this.loading = false;
         },
       });
     }
@@ -108,12 +161,14 @@ export class ModalComponent {
     if (this.isEditForm()) {
       this.personService.updatePerson(this.id, this.Form.value).subscribe({
         next: (data: Person) => {
-          console.log(data);
+          this.alertMessages = ['Person Updated Successfully'];
+          this.openAllert(true);
           this.loading = false;
         },
         error: (err) => {
-          console.log(err);
-          this.loading = false
+          this.alertMessages = err.error ? [err.error] : this.handleErros(err);
+          this.openAllert(false);
+          this.loading = false;
         },
       });
     }
@@ -121,12 +176,14 @@ export class ModalComponent {
     if (this.isDeleteForm()) {
       this.personService.delatePerson(this.id).subscribe({
         next: (data: Person) => {
-          console.log(data);
+          this.deletedPersonSuccess = true;
           this.loading = false;
         },
         error: (err) => {
           console.log(err);
-          this.loading = false
+          this.alertMessages = err.error ? [err.error] : ['Something wen wrong ']
+          this.openAllert(false);
+          this.loading = false;
         },
       });
     }
@@ -156,6 +213,7 @@ export class ModalComponent {
 
     this.Form.get('id')?.setValue('');
     this.Form.get('id')?.markAsUntouched();
+    this.resetAlert();
     this.close.emit();
   }
 }
