@@ -5,7 +5,7 @@
     <span class="text-sm leading-6 text-gray-800 w-25">Birthday</span>
   </li>
   <li
-    class="sm:flex w-full justify-between p-5 border border-solid border-gray-200 mb-3 shadow-indigo sm:hover:bg-indigo-50 rounded-lg"
+    class="sm:flex w-full justify-between p-5 transition-colors duration-300 border border-solid border-gray-200 mb-3 shadow-indigo sm:hover:bg-indigo-50 rounded-lg"
     *ngFor="let person of persons"
     [@listAnimation]
   >
@@ -54,12 +54,12 @@
       ></svg-icon>
       <app-button
         (click)="onClick('Eddit', person.id)"
-        class="sm:hidden flex-grow btn--full"
+        class="sm:hidden flex-grow"
         label="Edit"
       />
       <app-button
         (click)="onClick('Delete', person.id)"
-        class="sm:hidden flex-grow btn--full"
+        class="sm:hidden flex-grow"
         variant="outlined"
         label="Delete"
       />

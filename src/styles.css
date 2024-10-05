@@ -10,6 +10,7 @@
 
 :root {
   --indigo: #7c4dff;
+  --indigo-700: #512DA8;
 }
 
 .white__icon {
@@ -27,6 +28,12 @@
 .indigo__icon {
   & path {
     fill: var(--indigo);
+  }
+
+  &:hover {
+    & path {
+      fill: var(--indigo-700);
+    }
   }
 }
 
@@ -54,4 +61,3 @@ html {
   border-radius: 10px;
   background-color: var(--indigo);
 }
-
