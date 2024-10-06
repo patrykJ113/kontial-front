@@ -1,0 +1,77 @@
+<ul *ngIf="!loading && persons.length">
+  <li class="hidden mx-5 sm:flex gap-8 mt-5 mb-1">
+    <span class="text-sm leading-6 text-gray-800 w-10">ID</span>
+    <span class="text-sm leading-6 text-gray-800 w-36">Name</span>
+    <span class="text-sm leading-6 text-gray-800 w-25">Birthday</span>
+  </li>
+  <li
+    class="sm:flex w-full justify-between p-5 transition-colors duration-300 border border-solid border-gray-200 mb-3 shadow-indigo sm:hover:bg-indigo-50 rounded-lg"
+    *ngFor="let person of persons"
+    [@listAnimation]
+  >
+    <div
+      class="flex flex-col sm:flex-row gap-5 sm:gap-8 items-start sm:items-center"
+    >
+      <div
+        class="flex items-center sm:block w-10 order-2 sm:order-1 text-gray-700 sm:text-gray-600 text-base leading-6.5 sm:text-xs sm:leading-2"
+      >
+        <svg-icon
+          class="sm:hidden mr-6"
+          src="assets/svg/id.svg"
+          [svgStyle]="{ 'height.px': 20, 'width.px': 20 }"
+        ></svg-icon>
+        {{ person.id }}
+      </div>
+      <div
+        class="pb-[10px] sm:pb-0 w-full border-b border-solid truncate border-gray-300 sm:border-none sm:w-36 order-1 sm:order-2 text-[32px] leading-10 font-bold sm:font-medium sm:text-base sm:leading-6.5"
+      >
+        {{ person.name }}
+      </div>
+      <div
+        class="mt-2 sm:mt-0 flex items-center sm:block w-36 order-3 text-gray-700 text-base leading-6.5 sm:text-sm sm:leading-6"
+      >
+        <svg-icon
+          class="sm:hidden mr-6"
+          src="assets/svg/birthday.svg"
+          [svgStyle]="{ 'height.px': 20, 'width.px': 20 }"
+        ></svg-icon>
+        {{ person.birthday }}
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-2 sm:gap-7 mt-8 sm:mt-0">
+      <svg-icon
+        (click)="onClick('Eddit', person.id)"
+        class="indigo__icon hover:cursor-pointer hidden sm:block"
+        src="assets/svg/pencil.svg"
+        [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
+      ></svg-icon>
+      <svg-icon
+        (click)="onClick('Delete', person.id)"
+        class="indigo__icon hover:cursor-pointer hidden sm:block"
+        src="assets/svg/remove.svg"
+        [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
+      ></svg-icon>
+      <app-button
+        (click)="onClick('Eddit', person.id)"
+        class="sm:hidden flex-grow"
+        label="Edit"
+      />
+      <app-button
+        (click)="onClick('Delete', person.id)"
+        class="sm:hidden flex-grow"
+        variant="outlined"
+        label="Delete"
+      />
+    </div>
+  </li>
+</ul>
+<div *ngIf="!persons.length" class="flex flex-col items-center mt-5 sm:mt-20">
+  <svg-icon
+    class="indigo__icon"
+    src="assets/svg/no-results-found.svg"
+    [svgStyle]="{ 'height.px': 160, 'width.px': 160 }"
+  ></svg-icon>
+  <h1 class="text-3xl mt-5">No results found</h1>
+  <p class="text-gray-600">Please try a different search</p>
+</div>

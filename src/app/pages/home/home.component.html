@@ -1,0 +1,24 @@
+<section
+  class="grid grid-cols-4 mt-6 mx-4 gap-x-4 gap-y-0 md:grid-cols-8 md:mx-8 lg:grid-cols-12 lg:mx-6 lg:gap-x-6 xl:mx-50"
+>
+  <section class="flex justify-between items-center col-span-full">
+    <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
+    <app-button
+      [showIcon]="true"
+      (click)="openModal({ type: 'Add' })"
+    />
+  </section>
+  <app-person-list
+    (open)="openModal($event)"
+    [persons]="filteredPersons"
+    [loading]="loading"
+    class="col-span-full"
+  ></app-person-list>
+  <app-modal
+    [open]="modalOpen"
+    [id]="modalId"
+    [type]="modalType"
+    (close)="closeModal()"
+    (refetchData)="refetchData()"
+  ></app-modal>
+</section>

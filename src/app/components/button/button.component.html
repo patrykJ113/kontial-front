@@ -1,0 +1,20 @@
+<button
+  [type]="buttonType()"
+  class="leading-6.5 py-2 px-4 rounded-full flex justify-center w-full duration-300"
+  [ngClass]="getButtonClasses()"
+>
+  <div class="flex items-center">
+    <span
+      *ngIf="!isCircle()"
+      class="mr-1 min-w-24"
+      [ngClass]="{ 'min-w-fit': showIcon }"
+      >{{ label }}</span
+    >
+
+    <svg-icon
+      *ngIf="showIcon || isCircle()"
+      src="assets/svg/add.svg"
+      [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
+    ></svg-icon>
+  </div>
+</button>

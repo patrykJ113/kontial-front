@@ -1,0 +1,204 @@
+<div *ngIf="open" (click)="closeModal()" class="fixed bg-backdrop inset-0">
+  <div
+    class="grid h-full grid-cols-4 mt-6 mx-4 gap-x-4 gap-y-0 md:grid-cols-8 md:mx-8 lg:grid-cols-12 lg:mx-6 lg:gap-x-6 xl:mx-50 items-center"
+  >
+    <article
+      (click)="$event.stopPropagation()"
+      class="bg-white h-max p-5 col-span-full md:col-start-2 md:col-end-8 lg:col-start-4 lg:col-end-10 rounded-lg relative"
+    >
+      <div
+        *ngIf="isAlertOpen"
+        [ngClass]="{
+          'bg-green-A400 border-green-900': success,
+          'bg-red-A400 border-red-900': !success
+        }"
+        class="absolute bottom-full-20 left-0 border border-solid text-white rounded-lg px-5 py-3 flex w-full gap-6 items-center"
+      >
+        <svg-icon
+          *ngIf="false"
+          class="white__icon"
+          src="assets/svg/success.svg"
+          [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
+        ></svg-icon>
+        <svg-icon
+          class="white__icon"
+          src="assets/svg/error.svg"
+          [svgStyle]="{ 'height.px': 24, 'width.px': 24 }"
+        ></svg-icon>
+        <div>
+          <span
+            class="text-sm leading-6"
+            *ngFor="
+              let message of alertMessages;
+              let i = index;
+              let last = last
+            "
+          >
+            {{ message }}<span *ngIf="!last">,</span>
+          </span>
+        </div>
+      </div>
+      <section class="flex justify-between items-center mb-5">
+        <h1
+          [ngClass]="{ 'text-red-A400': isDeleteForm() }"
+          class="text-3.5xl font-bold"
+        >
+          {{ type }} Person
+        </h1>
+        <svg-icon
+          class="hover:cursor-pointer"
+          (click)="closeModal()"
+          src="assets/svg/close.svg"
+          [svgStyle]="{ 'height.px': 16, 'width.px': 16 }"
+        ></svg-icon>
+      </section>
+      <section class="flex flex-col">
+        <form [formGroup]="Form" (ngSubmit)="onSubmit()" class="relative">
+          <app-spinner *ngIf="loading" [spinnerRed]="isDeleteForm()" />
+          <div *ngIf="isDeleteForm()" class="pb-5">
+            <div *ngIf="!deletedPersonSuccess">
+              Are you sure you want to permanently delete the user
+              <span class="font-bold">{{ person.name }}</span> with ID
+              <span class="font-bold">{{ person.id }}</span
+              >? This action cannot be undone.
+            </div>
+            <div *ngIf="deletedPersonSuccess">
+              Person has been successfully deleted from the system. If you need
+              to add them back in the future, you can do so using the 'Add'
+              button.
+            </div>
+          </div>
+          <section *ngIf="!isDeleteForm()">
+            <label class="flex flex-col gap-2 pb-2">
+              <span class="text-sm leading-6 font-medium"
+                >Name<span class="text-red-A400">*</span></span
+              >
+              <input
+                formControlName="name"
+                class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
+                [ngClass]="{ 'border-red-A400': isControlInvalid('name') }"
+                required
+                type="text"
+                placeholder="Enter Name"
+              />
+              <span
+                class="text-sm leading-6 text-red-A400"
+                [ngClass]="{ invisible: !isControlInvalid('name') }"
+              >
+                {{
+                  hasServerError("name", "invalidName")
+                    ? "Name is Invalid"
+                    : "Name is required"
+                }}.</span
+              >
+            </label>
+            <label class="flex flex-col gap-2 pb-2">
+              <span class="text-sm leading-6 font-medium">
+                Birthday<span class="text-red-A400">*</span></span
+              >
+              <input
+                formControlName="birthday"
+                class="w-full block border border-solid border-gray-500 rounded py-2 px-3"
+                [ngClass]="[
+                  isControlInvalid('birthday') ? 'border-red-A400' : ''
+                ]"
+                required
+                type="date"
+                min="1920-01-01"
+                [max]="today"
+              />
+              <span
+                class="text-sm leading-6 text-red-A400 transition-opacity duration-500"
+                [ngClass]="{ invisible: !isControlInvalid('birthday') }"
+                >{{
+                  hasServerError("birthday", "invalidBirthday")
+                    ? "Birthday is Invalid"
+                    : "Birthday is required."
+                }}</span
+              >
+            </label>
+            <label class="flex flex-col gap-2 pb-2">
+              <span class="text-sm leading-6 font-medium"
+                >ID<span class="text-red-A400">*</span></span
+              >
+              <input
+                [readonly]="isEditForm()"
+                formControlName="id"
+                class="placeholder-gray-700 w-full block border border-solid border-gray-500 rounded py-2 px-3"
+                [ngClass]="{
+                  'border-red-A400': isControlInvalid('id'),
+                  'text-gray-400 border-gray-300 outline-none': isEditForm()
+                }"
+                required
+                type="text"
+                placeholder="Enter ID"
+              />
+              <div class="h-[72px]">
+                <div
+                  *ngIf="!isEditForm()"
+                  class="text-sm leading-6 text-gray-700"
+                  [ngClass]="{ hidden: isControlInvalid('id') }"
+                >
+                  ID must start with a letter (A-Z) followed by 4 digits (e.g.,
+                  A1234). The ID should be exactly 5 characters long
+                </div>
+                <div
+                  [ngClass]="{
+                    invisible:
+                      hasServerError('name', 'invalidId') ||
+                      !isControlInvalid('id')
+                  }"
+                  class="djasnosdadskads"
+                >
+                  <div
+                    class="text-sm leading-6 text-red-A400"
+                    *ngIf="hasServerError('id', 'idExists')"
+                  >
+                    ID must be unique.
+                  </div>
+                  <div
+                    class="text-sm leading-6 text-red-A400"
+                    *ngIf="
+                      hasServerError('id', 'invalidId') || startWithLetter()
+                    "
+                  >
+                    ID must start with a letter.
+                  </div>
+                  <div
+                    class="text-sm leading-6 text-red-A400"
+                    *ngIf="hasServerError('id', 'invalidId') || hasFourDigits()"
+                  >
+                    ID must have 4 digits after the letter.
+                  </div>
+                  <div
+                    class="text-sm leading-6 text-red-A400"
+                    *ngIf="
+                      hasServerError('id', 'invalidId') || isFiveCharLong()
+                    "
+                  >
+                    ID must be exactly 5 characters long.
+                  </div>
+                </div>
+              </div>
+            </label>
+          </section>
+          <section *ngIf="!deletedPersonSuccess" class="flex gap-2 mt-5">
+            <app-button
+              [danger]="isDeleteForm()"
+              [submit]="true"
+              class="flex-grow"
+              [label]="type + ' Person'"
+            />
+            <app-button
+              [danger]="isDeleteForm()"
+              (click)="closeModal()"
+              class="flex-grow"
+              variant="outlined"
+              label="Cancel"
+            />
+          </section>
+        </form>
+      </section>
+    </article>
+  </div>
+</div>
