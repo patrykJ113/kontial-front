@@ -1,7 +1,7 @@
 <ul *ngIf="!loading && persons.length">
   <li class="hidden mx-5 sm:flex gap-8 mt-5 mb-1">
     <span class="text-sm leading-6 text-gray-800 w-10">ID</span>
-    <span class="text-sm leading-6 text-gray-800 w-25">Name</span>
+    <span class="text-sm leading-6 text-gray-800 w-36">Name</span>
     <span class="text-sm leading-6 text-gray-800 w-25">Birthday</span>
   </li>
   <li
@@ -23,23 +23,23 @@
         {{ person.id }}
       </div>
       <div
-        class="pb-[10px] sm:pb-0 w-full border-b border-solid border-gray-300 sm:border-none sm:w-25 order-1 sm:order-2 text-[32px] leading-10 font-bold sm:font-medium sm:text-base sm:leading-6.5"
+        class="pb-[10px] sm:pb-0 w-full border-b border-solid truncate border-gray-300 sm:border-none sm:w-36 order-1 sm:order-2 text-[32px] leading-10 font-bold sm:font-medium sm:text-base sm:leading-6.5"
       >
         {{ person.name }}
       </div>
       <div
-        class="mt-2 sm:mt-0 flex items-center sm:block w-25 order-3 text-gray-700 text-base leading-6.5 sm:text-sm sm:leading-6"
+        class="mt-2 sm:mt-0 flex items-center sm:block w-36 order-3 text-gray-700 text-base leading-6.5 sm:text-sm sm:leading-6"
       >
         <svg-icon
           class="sm:hidden mr-6"
           src="assets/svg/birthday.svg"
           [svgStyle]="{ 'height.px': 20, 'width.px': 20 }"
         ></svg-icon>
-        {{ person.date }}
+        {{ person.birthday }}
       </div>
     </div>
 
-    <div class="flex gap-2 sm:gap-7 mt-5 sm:mt-0">
+    <div class="flex flex-col sm:flex-row gap-2 sm:gap-7 mt-8 sm:mt-0">
       <svg-icon
         (click)="onClick('Eddit', person.id)"
         class="indigo__icon hover:cursor-pointer hidden sm:block"

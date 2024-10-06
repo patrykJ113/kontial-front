@@ -14,13 +14,13 @@ export class PersonService {
 
   getPersons(): Observable<Person[]> {
     return this.http
-      .get<{ id: string; name: string; year: string }[]>(environment.apiUrl)
+      .get<Person[]>(environment.apiUrl)
       .pipe(
         map((response) =>
           response.map((person) => ({
             id: person.id,
             name: person.name,
-            date: person.year,
+            birthday: person.birthday,
           }))
         )
       );
@@ -28,14 +28,14 @@ export class PersonService {
 
   getPerson(id: string): Observable<Person> {
     return this.http
-      .get<{ id: string; name: string; birthday: string }>(
+      .get<Person>(
         `${environment.apiUrl}/${id}`
       )
       .pipe(
         map((person) => ({
           id: person.id,
           name: person.name,
-          date: person.birthday,
+          birthday: person.birthday,
         }))
       );
   }

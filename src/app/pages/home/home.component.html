@@ -4,7 +4,6 @@
   <section class="flex justify-between items-center col-span-full">
     <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
     <app-button
-      class="hidden sm:block"
       [showIcon]="true"
       (click)="openModal({ type: 'Add' })"
     />

@@ -104,9 +104,11 @@
                 ]"
                 required
                 type="date"
+                min="1920-01-01"
+                [max]="today"
               />
               <span
-                class="text-sm leading-6 text-red-A400"
+                class="text-sm leading-6 text-red-A400 transition-opacity duration-500"
                 [ngClass]="{ invisible: !isControlInvalid('birthday') }"
                 >{{
                   hasServerError("birthday", "invalidBirthday")
@@ -192,7 +194,7 @@
               (click)="closeModal()"
               class="flex-grow"
               variant="outlined"
-              label="Cancle"
+              label="Cancel"
             />
           </section>
         </form>

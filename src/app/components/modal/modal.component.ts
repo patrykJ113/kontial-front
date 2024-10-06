@@ -48,7 +48,8 @@ export class ModalComponent {
   isAlertOpen = false;
   success = false;
   alertMessages: string[] = [];
-  deletedPersonSuccess = false
+  deletedPersonSuccess = false;
+  today = new Date().toISOString().split('T')[0];
 
   constructor(private fb: FormBuilder, private personService: PersonService) {
     this.Form = this.fb.group({
@@ -66,7 +67,7 @@ export class ModalComponent {
           this.person = data;
           this.Form.patchValue({
             name: this.person.name,
-            birthday: this.person.date,
+            birthday: this.person.birthday,
             id: this.person.id,
           });
           this.loading = false;
@@ -110,25 +111,25 @@ export class ModalComponent {
     return this.Form.get(inputName)?.errors?.[errorName] !== undefined;
   }
 
-  handleErros(err: HttpErrorResponse): string[] {
+  handleErros({ error }: HttpErrorResponse): string[] {
     const errorMesages: string[] = [];
 
-    if (err.error.id) {
+    if (error.id) {
       this.Form.get('id')?.setErrors({ invalidId: true });
-      errorMesages.push(err.error.id);
+      errorMesages.push(error.id);
     }
 
-    if (err.error.name) {
+    if (error.name) {
       this.Form.get('name')?.setErrors({ invalidName: true });
-      errorMesages.push(err.error.name);
+      errorMesages.push(error.name);
     }
-    if (err.error.birthday) {
+    if (error.birthday) {
       this.Form.get('birthday')?.setErrors({ invalidBirthday: true });
-      errorMesages.push(err.error.birthday);
+      errorMesages.push(error.birthday);
     }
-    if (err.error.exists) {
+    if (error.exists) {
       this.Form.get('id')?.setErrors({ idExists: true });
-      errorMesages.push(err.error.exists);
+      errorMesages.push(error.exists);
     }
 
     return errorMesages;
@@ -137,7 +138,7 @@ export class ModalComponent {
   onSubmit() {
     if (this.Form.invalid) {
       this.Form.markAllAsTouched();
-      this.deletedPersonSuccess = false
+      this.deletedPersonSuccess = false;
       return;
     }
 
@@ -150,10 +151,13 @@ export class ModalComponent {
           this.alertMessages = ['Person Added Successfully'];
           this.openAllert(true);
           this.loading = false;
-          this.refetchData.emit()
+          this.refetchData.emit();
         },
         error: (err) => {
-          this.alertMessages = err.error ? [err.error] : this.handleErros(err);
+          this.alertMessages = err.error.message
+            ? [err.error.message]
+            : this.handleErros(err);
+          console.log(err);
           this.openAllert(false);
           this.loading = false;
         },
@@ -169,7 +173,9 @@ export class ModalComponent {
           this.refetchData.emit();
         },
         error: (err) => {
-          this.alertMessages = err.error ? [err.error] : this.handleErros(err);
+          this.alertMessages = err.error.message
+            ? [err.error.message]
+            : this.handleErros(err);
           this.openAllert(false);
           this.loading = false;
         },
@@ -185,7 +191,10 @@ export class ModalComponent {
         },
         error: (err) => {
           console.log(err);
-          this.alertMessages = err.error ? [err.error] : ['Something went wrong ']
+          this.deletedPersonSuccess = false;
+          this.alertMessages = err.error.message
+            ? [err.error.message]
+            : ['Something went wrong '];
           this.openAllert(false);
           this.loading = false;
         },
@@ -217,6 +226,7 @@ export class ModalComponent {
 
     this.Form.get('id')?.setValue('');
     this.Form.get('id')?.markAsUntouched();
+    this.deletedPersonSuccess = false;
     this.resetAlert();
     this.close.emit();
   }
