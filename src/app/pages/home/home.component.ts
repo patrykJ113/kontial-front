@@ -29,7 +29,7 @@ export class HomeComponent {
 
   constructor(private personService: PersonService) {}
 
-  ngOnInit(): void {
+  fetchData() {
     this.personService.getPersons().subscribe({
       next: (data) => {
         this.persons = data;
@@ -41,6 +41,10 @@ export class HomeComponent {
         this.loading = false;
       },
     });
+  }
+
+  ngOnInit(): void {
+    this.fetchData()
   }
 
   onSearch(query: string) {
@@ -57,5 +61,9 @@ export class HomeComponent {
 
   closeModal() {
     this.modalOpen = false;
+  }
+
+  refetchData() {
+    this.fetchData();
   }
 }

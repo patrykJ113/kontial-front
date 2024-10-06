@@ -41,6 +41,7 @@ export class ModalComponent {
   @Input() open = false;
   @Input() id = '';
   @Output() close = new EventEmitter<void>();
+  @Output() refetchData = new EventEmitter<void>();
   person!: Person;
   Form: FormGroup;
   loading = false;
@@ -149,6 +150,7 @@ export class ModalComponent {
           this.alertMessages = ['Person Added Successfully'];
           this.openAllert(true);
           this.loading = false;
+          this.refetchData.emit()
         },
         error: (err) => {
           this.alertMessages = err.error ? [err.error] : this.handleErros(err);
@@ -164,6 +166,7 @@ export class ModalComponent {
           this.alertMessages = ['Person Updated Successfully'];
           this.openAllert(true);
           this.loading = false;
+          this.refetchData.emit();
         },
         error: (err) => {
           this.alertMessages = err.error ? [err.error] : this.handleErros(err);
@@ -178,10 +181,11 @@ export class ModalComponent {
         next: (data: Person) => {
           this.deletedPersonSuccess = true;
           this.loading = false;
+          this.refetchData.emit();
         },
         error: (err) => {
           console.log(err);
-          this.alertMessages = err.error ? [err.error] : ['Something wen wrong ']
+          this.alertMessages = err.error ? [err.error] : ['Something went wrong ']
           this.openAllert(false);
           this.loading = false;
         },
